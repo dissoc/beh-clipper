@@ -1,0 +1,34 @@
+#+TITLE:     BEH-Clipper
+#+AUTHOR:    Justin Bishop
+#+LANGUAGE:  en
+#+EMAIL:     (concat "mail" @ "dissoc.me")
+
+#+OPTIONS: num:nil
+#+OPTIONS: toc:nil
+
+BEH-Clipper is a chrome extension that will clip all the H-E-B coupons on a
+given page
+
+* installation
+To install the extension run the command:
+#+BEGIN_SRC sh :results output
+  npx shadow-cljs release ext
+#+END_SRC
+open chrome and load the extension:
+load the 'ext' folder as an "Unpacked Extension"
+via [[chrome://extensions/][Chrome Extensions]
+
+* development
+for development with emacs run
+#+BEGIN_SRC sh :results output
+M-x cider-jack-in-cljs
+#+END_SRC
+then open a browser and navigate to http://localhost:9630/builds
+If there are multiple builds the port can be incremented. i.g. 9631, 9632...
+
+Note: new manifest updates do not allow for the traditional REPL experience
+
+* TODO
+** Implement simulation for development
+** Implement settings
+*** click delay to mitigate HEB bot detection timeout
