@@ -1,0 +1,33 @@
+{
+    "name": "BEH Clipper",
+    "description": "Clips coupons from the popular texas grocery store",
+    "version": "1.0",
+    "manifest_version": 3,
+    "permissions": [
+        "alarms",
+        "notifications",
+        "storage"
+    ],
+    "content_scripts": [
+        {
+            "js": ["js/content_proxy.js"],
+            "matches": ["https://*.heb.com/*"]
+        }],
+    "web_accessible_resources": [{"matches": ["https://*.heb.com/*"],
+                                  "resources": ["js/*", "assets/*"]}],
+
+    "background": {
+        "service_worker": "js/background.js",
+        "type": "module"
+    },
+    "action": {
+        "default_title": "BEH Clipper",
+        "default_popup": "popup.html"
+    },
+    "icons": {
+        "16": "./icons/scissors-svgrepo-com-16x16.png",
+        "32": "./icons/scissors-svgrepo-com-32x32.png",
+        "48": "./icons/scissors-svgrepo-com-48x48.png",
+        "128": "./icons/scissors-svgrepo-com-128x128.png"
+    }
+}

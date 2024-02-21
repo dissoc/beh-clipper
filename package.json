@@ -1,0 +1,12 @@
+{
+    "name": "beh-clipper-ext",
+    "version": "0.0.1",
+    "private": true,
+    "devDependencies": {
+        "shadow-cljs": "2.24.0"
+    },
+    "dependencies": {
+        "react": "17.0.1",
+        "react-dom": "17.0.1"
+    }
+}

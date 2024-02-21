@@ -19,6 +19,12 @@ load the 'ext' folder as an "Unpacked Extension"
 via [[chrome://extensions/][Chrome Extensions]
 
 * development
+
+install modules
+#+BEGIN_SRC sh :results output
+npm install
+#+END_SRC
+
 for development with emacs run
 #+BEGIN_SRC sh :results output
 M-x cider-jack-in-cljs
@@ -29,6 +35,6 @@ If there are multiple builds the port can be incremented. i.g. 9631, 9632...
 Note: new manifest updates do not allow for the traditional REPL experience
 
 * TODO
-** Implement simulation for development
-** Implement settings
-*** click delay to mitigate HEB bot detection timeout
+** TODO Implement simulation for development
+** TODO Implement settings
+*** TODO click delay to mitigate HEB bot detection timeout
