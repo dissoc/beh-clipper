@@ -6,6 +6,5 @@
 
 (defn init []
   (info "Initializing clipper extension...")
-  ;;(devtools/install!)
   (dispatch [::events/init-content-script])
   (info "Initialization complete"))
