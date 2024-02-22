@@ -11,7 +11,8 @@
    [taoensso.timbre :refer [info]]))
 
 (defn click-delay-config []
-  (let [click-delay (subscribe [::subs/click-delay])]
+  (let [click-delay (subscribe [::subs/click-delay])
+        click-delay-view (subscribe [::subs/click-delay-view])]
     (fn []
       [rc/v-box
        :gap "10px"
@@ -20,9 +21,15 @@
        [[rc/label
          :style (:label style)
          :label "click delay (ms)"]
-        [rc/input-text
-         :width "60px"
+        [rc/label
+         :style (:label style)
+         :label (str @click-delay)]
+        [rc/slider
          :model click-delay
+         :width "160px"
+         :min 1000
+         :step 500
+         :max 8000
          :on-change #(dispatch [::events/set-click-delay %])]]])))
 
 (defn simulate-config []
@@ -34,7 +41,7 @@
          :style (:checkbox style)
          :model simulate?
          :on-change #(dispatch [::events/toggle-simulate])]
-        [rc/gap :size "6px"]
+        [rc/gap :size "10px"]
         [rc/label
          :style (:label style)
          :label "simulate"]]])))
@@ -48,6 +55,27 @@
      [[click-delay-config]
       [simulate-config]]]))
 
+(defn clip-buttons []
+  (let [click-delay (subscribe [::subs/click-delay])
+        simulate?   (subscribe [::subs/simulate?])]
+    (fn []
+      [rc/v-box
+       :gap "10px"
+       :align :center
+       :children
+       [[rc/button
+         :style (:button style)
+         :label "Clip page coupons"
+         :on-click #(dispatch [::events/clip-coupons {:click-delay @click-delay
+                                                      :keep-going? false
+                                                      :simulate    @simulate?}])]
+        [rc/button
+         :style (:button style)
+         :label "Clip all coupons"
+         :on-click #(dispatch [::events/clip-coupons {:click-delay @click-delay
+                                                      :keep-going? true
+                                                      :simulate    @simulate?}])]]])))
+
 (defn page []
   [rc/v-box
    :gap "10px"
@@ -56,19 +84,12 @@
                  (select-keys style [:background-color]))
 
    :children [[rc/label
-               :style (:color style)
+               :style (:label style)
                :label "BEH Clipper"]
               [:img {:src    "./icons/scissors-svgrepo-com-128x128.png"
                      :width  124
                      :height 124}]
-              [rc/button
-               :style (:button style)
-               :label "Clip page coupons"
-               :on-click #(dispatch [::events/clip-page-coupons])]
-              [rc/button
-               :style (:button style)
-               :label "Clip all coupons"
-               :on-click #(dispatch [::events/clip-all-coupons])]
+              [clip-buttons]
               [config]]])
 
 (defn mount-components []

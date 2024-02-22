@@ -30,3 +30,9 @@
            (js/isNaN db-click-delay))
      default-click-delay
      db-click-delay)))
+
+(reg-sub
+ ::click-delay-view
+ :<- [::click-delay]
+ (fn [click-delay]
+   (str click-delay)))

@@ -3,7 +3,7 @@
 (ns beh-clipper.popup.events
   (:require
    [cognitect.transit :as t]
-   [re-frame.core :refer [dispatch reg-event-fx reg-fx]]
+   [re-frame.core :refer [dispatch reg-event-fx reg-fx reg-event-db]]
    [taoensso.timbre :refer [info]])
   (:require-macros [cljs.core.async.macros :refer [go]]))
 
@@ -17,18 +17,10 @@
    {::start-message-listener nil}))
 
 (reg-event-fx
- ::clip-page-coupons
+ ::clip-coupons
  []
- (fn [{:keys [db]} [_]]
-   {::msg-content [:clip-page-coupons (merge {:keep-going? false}
-                                             (:config db))]}))
-
-(reg-event-fx
- ::clip-all-coupons
- []
- (fn [{:keys [db]} [_]]
-   {::msg-content [:clip-all-coupons (merge {:keep-going? true}
-                                            (:config db))]}))
+ (fn [{:keys [db]} [_ conf]]
+   {::msg-content [:start-clipping-process conf]}))
 
 (reg-event-fx
  ::toggle-simulate
@@ -36,8 +28,16 @@
  (fn [{:keys [db]} [_]]
    {:db (update-in db [:config :simulate?] not)}))
 
+(reg-event-db
+ ::set-click-delay
+ (fn [db [_ n]]
+   (if (js/isNaN n)
+     db
+     (assoc-in db [:config :click-delay] n))))
+
 (reg-fx
  ::msg-content
+ ;; sends messages to the content page message listener
  (fn [msg]
    (go
      (info "Sending message to content script")
@@ -51,6 +51,7 @@
 
 (reg-fx
  ::start-message-listener
+ ;; starts the popup message listener
  (fn [msg]
    (info "Creating message listener")
    (js/chrome.runtime.onMessage.addListener
