@@ -1,3 +1,5 @@
+;;; Copyright © 2024 Justin Bishop (concat "mail" @ "dissoc.me")
+
 (ns beh-clipper.content.events
   (:require
    [cognitect.transit :as t]

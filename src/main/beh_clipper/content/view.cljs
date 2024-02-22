@@ -1,3 +1,5 @@
+;;; Copyright © 2024 Justin Bishop (concat "mail" @ "dissoc.me")
+
 (ns beh-clipper.content.view
   (:require
    [beh-clipper.content.events :as events]

@@ -17,34 +17,32 @@
       [rc/v-box
        :gap "10px"
        :align :center
-       :children
-       [[rc/label
-         :style (:label style)
-         :label "click delay (ms)"]
-        [rc/label
-         :style (:label style)
-         :label (str @click-delay)]
-        [rc/slider
-         :model click-delay
-         :width "160px"
-         :min 1000
-         :step 500
-         :max 8000
-         :on-change #(dispatch [::events/set-click-delay %])]]])))
+       :children [[rc/label
+                   :style (:label style)
+                   :label "click delay (ms)"]
+                  [rc/label
+                   :style (:label style)
+                   :label (str @click-delay)]
+                  [rc/slider
+                   :model click-delay
+                   :width "160px"
+                   :min 1000
+                   :step 500
+                   :max 8000
+                   :on-change #(dispatch [::events/set-click-delay %])]]])))
 
 (defn simulate-config []
   (let [simulate? (subscribe [::subs/simulate?])]
     (fn []
       [rc/h-box
-       :children
-       [[rc/checkbox
-         :style (:checkbox style)
-         :model simulate?
-         :on-change #(dispatch [::events/toggle-simulate])]
-        [rc/gap :size "10px"]
-        [rc/label
-         :style (:label style)
-         :label "simulate"]]])))
+       :children [[rc/checkbox
+                   :style (:checkbox style)
+                   :model simulate?
+                   :on-change #(dispatch [::events/toggle-simulate])]
+                  [rc/gap :size "10px"]
+                  [rc/label
+                   :style (:label style)
+                   :label "simulate"]]])))
 
 (defn config []
   (fn []

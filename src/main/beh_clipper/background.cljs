@@ -1,3 +1,5 @@
+;;; Copyright © 2024 Justin Bishop (concat "mail" @ "dissoc.me")
+
 (ns beh-clipper.background
   (:require [shadow.cljs.modern :refer (js-await)]
             [taoensso.timbre :refer [info debug]]))
