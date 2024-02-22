@@ -10,20 +10,43 @@
    [reagent.dom :as rdom]
    [taoensso.timbre :refer [info]]))
 
-(defn config []
-  (let [simulate? (subscribe [::subs/simulate?])]
+(defn click-delay-config []
+  (let [click-delay (subscribe [::subs/click-delay])]
     (fn []
       [rc/v-box
-       :children [[rc/h-box
-                   :children
-                   [[rc/checkbox
-                     :style (:checkbox style)
-                     :model simulate?
-                     :on-change #(dispatch [::events/toggle-simulate])]
-                    [rc/gap :size "6px"]
-                    [rc/label
-                     :style (:color style)
-                     :label "simulate"]]]]])))
+       :gap "10px"
+       :align :center
+       :children
+       [[rc/label
+         :style (:label style)
+         :label "click delay (ms)"]
+        [rc/input-text
+         :width "60px"
+         :model click-delay
+         :on-change #(dispatch [::events/set-click-delay %])]]])))
+
+(defn simulate-config []
+  (let [simulate? (subscribe [::subs/simulate?])]
+    (fn []
+      [rc/h-box
+       :children
+       [[rc/checkbox
+         :style (:checkbox style)
+         :model simulate?
+         :on-change #(dispatch [::events/toggle-simulate])]
+        [rc/gap :size "6px"]
+        [rc/label
+         :style (:label style)
+         :label "simulate"]]])))
+
+(defn config []
+  (fn []
+    [rc/v-box
+     :align :center
+     :gap "10px"
+     :children
+     [[click-delay-config]
+      [simulate-config]]]))
 
 (defn page []
   [rc/v-box
@@ -35,7 +58,9 @@
    :children [[rc/label
                :style (:color style)
                :label "BEH Clipper"]
-              [:img {:src "./icons/scissors-svgrepo-com-128x128.png" :width 124 :height 124}]
+              [:img {:src    "./icons/scissors-svgrepo-com-128x128.png"
+                     :width  124
+                     :height 124}]
               [rc/button
                :style (:button style)
                :label "Clip page coupons"

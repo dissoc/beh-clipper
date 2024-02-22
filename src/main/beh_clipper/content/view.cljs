@@ -1,7 +1,9 @@
 (ns beh-clipper.content.view
-  (:require [re-frame.core :refer [dispatch]]
-            [beh-clipper.content.events :as events]
-            [taoensso.timbre :refer [info debug]]))
+  (:require
+   [beh-clipper.content.events :as events]
+   [re-frame.core :refer [dispatch]]
+   [taoensso.timbre :refer [info]]))
+
 (defn init []
   (info "Initializing clipper extension...")
   ;;(devtools/install!)
