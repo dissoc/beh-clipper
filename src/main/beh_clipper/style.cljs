@@ -4,6 +4,6 @@
 
 (def style
   {:background-color "#121212"
-   :button           {:background-color "#BB86FC"}
+   :button           {:background-color "#C7310B"}
    :label            {:color "#FFF"}
    :checkbox         {:color "white"}})
