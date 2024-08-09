@@ -45,19 +45,27 @@
                                  (= "Clip" span-text))))))))))
 
 (defn get-view-more-btn []
+
+  ;; old version with "view more" button
+  ;; (->> "button"
+  ;;      (. js/document getElementsByTagName)
+  ;;      (filter (fn [el]
+  ;;                (and (try (not (.-disabled el))
+  ;;                          (catch js/Error e
+  ;;                            false))
+  ;;                     ;; also child has clip
+  ;;                     (let [child (.-children el)]
+  ;;                       (when-let [span-child (aget child 0)]
+  ;;                         (let [node-name (.-nodeName  span-child)
+  ;;                               span-text (.-textContent span-child)]
+  ;;                           (and (= "SPAN" node-name)
+  ;;                                (= "View more" span-text))))))))
+  ;;      first)
+
+  ;; console selector
+  ;; document.querySelectorAll('[data-qe-id="paginationNext"]')[0].click();
   (->> "button"
-       (. js/document getElementsByTagName)
-       (filter (fn [el]
-                 (and (try (not (.-disabled el))
-                           (catch js/Error e
-                             false))
-                      ;; also child has clip
-                      (let [child (.-children el)]
-                        (when-let [span-child (aget child 0)]
-                          (let [node-name (.-nodeName  span-child)
-                                span-text (.-textContent span-child)]
-                            (and (= "SPAN" node-name)
-                                 (= "View more" span-text))))))))
+       (. js/document querySelectorAll "[data-qe-id=\"paginationNext\"]")
        first))
 
 (reg-fx
