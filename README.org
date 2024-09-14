@@ -2,6 +2,7 @@
 #+AUTHOR:    Justin Bishop
 #+LANGUAGE:  en
 #+EMAIL:     (concat "mail" @ "dissoc.me")
+#+TAGS:      cljs chrome-extension
 
 #+OPTIONS: num:nil
 #+OPTIONS: toc:nil
